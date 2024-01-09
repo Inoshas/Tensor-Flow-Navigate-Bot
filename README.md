@@ -17,6 +17,8 @@ A project that combines LEGO Mindstorms 51515, Raspberry Pi 4, and TensorFlow fo
 
 Our goal is to create a smart robot capable of navigating its environment, making decisions based on detected signs, and responding to visual cues. The project leverages the following hardware and software components:
 
+![Basic setup of the robot](images/Robot.jpeg)
+
 ### Hardware Components
 **Lego Mindstorms Set (Model 51515):** Serving as the foundation of our robot's construction, the Lego Mindstorms set provides an extensive collection of building blocks and components essential to the success of our venture.
 
