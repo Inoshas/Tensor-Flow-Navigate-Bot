@@ -14,7 +14,7 @@ while cpt < maxFrames:
     im= picam2.capture_array()
     im=cv2.flip(im,-1)
     cv2.imshow("Camera", im)
-    cv2.imwrite('/home/pi/sanket/images/arduino_uno_%d.jpg' %cpt, im)
+    cv2.imwrite('/home/pi/desktop/Tensor-flow-navigate-bot/images/L_%d.jpg' %cpt, im)
     cpt += 1
     if cv2.waitKey(1)==ord('q'):
         break
