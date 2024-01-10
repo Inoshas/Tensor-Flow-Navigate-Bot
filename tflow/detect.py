@@ -37,7 +37,9 @@ if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
-source=str(ROOT / 'efficientdet_lite0.tflite')
+source=str(ROOT / 'test.tflite')
+#source=str(ROOT / 'efficientdet_lite0.tflite')
+
 
 
 
@@ -91,7 +93,7 @@ def visualize(
                 FONT_SIZE, TEXT_COLOR, FONT_THICKNESS, cv2.LINE_AA)
 
     #return image
-    return image, result_text
+    return image
 
 def run(model: str, max_results: int, score_threshold: float, 
         camera_id: int, width: int, height: int) -> None:
@@ -161,9 +163,9 @@ def run(model: str, max_results: int, score_threshold: float,
 
     if detection_result_list:
         # print(detection_result_list)
-        current_frame, image_name = visualize(current_frame, detection_result_list[0])
+        current_frame = visualize(current_frame, detection_result_list[0])
         detection_frame = current_frame
-        print(image_name)
+       
         detection_result_list.clear()
 
     if detection_frame is not None:
