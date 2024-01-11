@@ -32,13 +32,13 @@ from picamera2 import Picamera2
 import os
 from pathlib import Path
 FILE = Path(__file__).resolve()
-ROOT = FILE.parents[0]  # YOLOv5 root directory
+ROOT = FILE.parents[0]  # tflow root directory
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
-#source=str(ROOT / 'test.tflite')
-source=str(ROOT / 'efficientdet_lite0.tflite')
+source=str(ROOT / 'test.tflite')
+#source=str(ROOT / 'efficientdet_lite0.tflite')
 
 category_name='testing'
 
@@ -86,6 +86,7 @@ def visualize(
     # Draw label and score
     category = detection.categories[0]
     category_name = category.category_name
+    #print(type(category_name))
     probability = round(category.score, 2)
     result_text = category_name + ' (' + str(probability) + ')'
     text_location = (MARGIN + bbox.origin_x,
@@ -94,8 +95,8 @@ def visualize(
                 FONT_SIZE, TEXT_COLOR, FONT_THICKNESS, cv2.LINE_AA)
 
     #return image
-    print(category_name)
-    return image, category_name
+    
+    return image
 
 def run(model: str, max_results: int, score_threshold: float, 
         camera_id: int, width: int, height: int) -> None:
@@ -123,7 +124,7 @@ def run(model: str, max_results: int, score_threshold: float,
   
 
   def save_result(result: vision.ObjectDetectorResult, unused_output_image: mp.Image, timestamp_ms: int):
-      global FPS, COUNTER, START_TIME
+      global FPS, COUNTER, START_TIME,category_name
 
       # Calculate the FPS
       if COUNTER % fps_avg_frame_count == 0:
@@ -144,7 +145,7 @@ def run(model: str, max_results: int, score_threshold: float,
 
   # Continuously capture images from the camera and run inference
   while True:
-     
+    global category_name 
     im= picam2.capture_array()  
 #    success, image = cap.read()
     image=cv2.resize(im,(1280,720))
@@ -166,13 +167,17 @@ def run(model: str, max_results: int, score_threshold: float,
 
     if detection_result_list:
         # print(detection_result_list)
-        current_frame,category_name = visualize(current_frame, detection_result_list[0])
+        current_frame = visualize(current_frame, detection_result_list[0])
         detection_frame = current_frame
-        print(f'***{category_name}***')
+        #print(f'***{category_name}***')
         detection_result_list.clear()
 
     if detection_frame is not None:
         cv2.imshow('object_detection', detection_frame)
+        return category_name
+
+    #if category_name=='oikea' or category_name== 'vasen' or category_name=='stop':
+    #   return 
 
     # Stop the program if the ESC key is pressed.
     if cv2.waitKey(1) == ord('q'):
@@ -181,6 +186,7 @@ def run(model: str, max_results: int, score_threshold: float,
   detector.close()
   cap.release()
   cv2.destroyAllWindows()
+  
 
 
 def main_tflow():
@@ -225,7 +231,10 @@ def main_tflow():
 
   run(args.model, int(args.maxResults),
       args.scoreThreshold, int(args.cameraId), args.frameWidth, args.frameHeight)
-  print(text)
+  
+  #return (tets)
 
 def detect_run():
   main_tflow()
+  print(f'test******* {category_name}')
+  return category_name

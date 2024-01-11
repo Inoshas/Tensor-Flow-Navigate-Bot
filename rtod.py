@@ -65,10 +65,12 @@ class correct_path_follower():
             previous_error, previous_time, current_time ,time_difference1, time_difference2=self.path_follow()
 
         else:
+            print('checking')
             self.check_object()
+            print('****************')
             # Avoid the obstacle:::
             #previous_error, current_time ,time_difference1, time_difference2=self.obstacle_avoid()
-         
+            
     #### Turning different directions
     def turn_right(self):
         self.pair.run_for_degrees(225,-20,-20)
@@ -90,7 +92,10 @@ class correct_path_follower():
     ### here we give code to go here and there based on the train data  
     def check_object(self):
         self.pair.stop()
-        detect.detect_run()
+        test=detect.detect_run()
+        print('now in the main code')
+        print(test)
+        print('done')
         time.sleep(1)
         self.turn_left
         time.sleep(.5)
