@@ -37,10 +37,10 @@ if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
-source=str(ROOT / 'test.tflite')
-#source=str(ROOT / 'efficientdet_lite0.tflite')
+#source=str(ROOT / 'test.tflite')
+source=str(ROOT / 'efficientdet_lite0.tflite')
 
-
+category_name='testing'
 
 
 
@@ -74,6 +74,7 @@ def visualize(
   Returns:
     Image with bounding boxes.
   """
+  global category_name
   for detection in detection_result.detections:
     # Draw bounding_box
     bbox = detection.bounding_box
@@ -93,7 +94,8 @@ def visualize(
                 FONT_SIZE, TEXT_COLOR, FONT_THICKNESS, cv2.LINE_AA)
 
     #return image
-    return image
+    print(category_name)
+    return image, category_name
 
 def run(model: str, max_results: int, score_threshold: float, 
         camera_id: int, width: int, height: int) -> None:
@@ -142,6 +144,7 @@ def run(model: str, max_results: int, score_threshold: float,
 
   # Continuously capture images from the camera and run inference
   while True:
+     
     im= picam2.capture_array()  
 #    success, image = cap.read()
     image=cv2.resize(im,(1280,720))
@@ -163,9 +166,9 @@ def run(model: str, max_results: int, score_threshold: float,
 
     if detection_result_list:
         # print(detection_result_list)
-        current_frame = visualize(current_frame, detection_result_list[0])
+        current_frame,category_name = visualize(current_frame, detection_result_list[0])
         detection_frame = current_frame
-       
+        print(f'***{category_name}***')
         detection_result_list.clear()
 
     if detection_frame is not None:
@@ -222,7 +225,7 @@ def main_tflow():
 
   run(args.model, int(args.maxResults),
       args.scoreThreshold, int(args.cameraId), args.frameWidth, args.frameHeight)
-
+  print(text)
 
 def detect_run():
   main_tflow()
