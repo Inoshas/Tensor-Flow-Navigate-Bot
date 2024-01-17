@@ -51,30 +51,22 @@ Here is an overview of the current structure of the repository: Note that this i
 │ ├── rtod.py # Code for path follow and sign detection
 │ └── ...
 ├── tflow/
-│ ├── template.tflite # Trained data for the robot
+│ ├── test.tflite # Trained data for the robot
 │ ├── detect.py # Code to detect signs and identify based on trained data (train_data.tflite)
 │ └── ...
-├── training/
-│ ├── train_data.py # Code used to train data according to project requirements
-│ ├── existing_repo_code/ # Code obtained from existing TensorFlow repositories
-│ └── ...
-├── data/
-│ ├── training_data/ # Store your training dataset here
-│ └── ...
-├── models/
-│ ├── trained_model/ # Store your trained TensorFlow model here
-│ └── ...
-├── docs/ # Documentation for your project
+├── train_data/
+│ ├── img.py # Code t capture picture data
+│ ├── tflite_custome_model.ipynb/ # 
+│ └── train.py / #Code to train data accrdingly
+├── docs/ # Documentation for your project # will update soon
 ├── README.md # Project README file
-├── requirements.txt # List of Python dependencies
+├── requirements.txt # List of Python dependencies # will update soon
 └── ...
 ```
 
 ## Getting started
   ### Prerequisites
   ### Installation
-
-
 
 ## Usage
 
